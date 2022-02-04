@@ -28,16 +28,39 @@ minikube kubectl get pods
 minikube kubectl get services
 minikube kubectl -- get po -A
 
+### 
+minikube ssh 'sudo ip link set docker0 promisc on'
+minikube dashboard
+kubectl create namespace reactive
+kubectl config set-context --current --namespace=reactive
+
+### launch
+kubectl apply -f flink-configuration-configmap.yaml
+kubectl apply -f jobmanager-application.yaml
+kubectl apply -f jobmanager-rest-service.yaml
+kubectl apply -f jobmanager-service.yaml
+kubectl apply -f taskmanager-job-deployment.yaml
+
 ### Cleanup
+docker image rm <id>
+docker image prune
+
+### Undeploy
+kubectl delete -f flink-configuration-configmap.yaml
+kubectl delete -f jobmanager-application.yaml
+kubectl delete -f jobmanager-rest-service.yaml
+kubectl delete -f jobmanager-service.yaml
+kubectl delete -f taskmanager-job-deployment.yaml
+
+
+### UnInstall
 minikube stop
 minikube delete
-
-docker image rm a60d24ee20bf
-docker image prune
 
 sudo systemctl stop docker
 sudo systemctl status docker
 sudo apt remove docker.io
+
 
 ### References
 Github

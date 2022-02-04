@@ -1,0 +1,14 @@
+org/apache/flink/common/datatypes/TaxiRide.class
+org/apache/flink/common/utils/DataGenerator.class
+org/apache/flink/common/utils/GeoUtils.class
+org/apache/flink/common/datatypes/TaxiFare.class
+org/apache/flink/DemoJob.class
+org/apache/flink/DemoJob$ThroughputLogger.class
+org/apache/flink/DataGen.class
+org/apache/flink/common/sources/TaxiFareGenerator.class
+org/apache/flink/common/utils/MissingSolutionException.class
+org/apache/flink/common/datatypes/RideAndFare.class
+org/apache/flink/RideCleansingJob.class
+org/apache/flink/common/sources/TaxiRideGenerator.class
+org/apache/flink/DemoJob$CPULoadMapper.class
+org/apache/flink/RideCleansingJob$NYCFilter.class

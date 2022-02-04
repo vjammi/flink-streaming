@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: taskmanager
-        image: vjammi/flink:1.13.0-reactive-demo
+        image: vjammi/flink:1.14.3-reactive-app
         imagePullPolicy: Always
         resources:
           requests:

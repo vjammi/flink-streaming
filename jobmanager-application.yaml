@@ -15,10 +15,10 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: jobmanager
-          image: vjammi/flink:1.13.0-reactive-demo
+          image: vjammi/flink:1.14.3-reactive-app
           imagePullPolicy: Always
           env:
-          args: ["standalone-job", "--job-classname", "org.apache.flink.RideCleansingJob", "--topic", "topic", "--bootstrap.servers", "kafka-service:9092", "--group.id", "yolo"]
+          args: ["standalone-job", "--job-classname", "org.apache.flink.RideCleansingJob"]
           ports:
             - containerPort: 6123
               name: rpc

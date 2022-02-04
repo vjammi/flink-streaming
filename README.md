@@ -171,6 +171,17 @@ edeaba958753: Layer already exists
 vjammi@linux-mint:~/ds/workspace/flink-streaming$
 
 ```
+### Docker Image
+```
+https://hub.docker.com/layers/190821948/vjammi/flink/1.14.3-reactive-app/images/sha256-175a5d179e31264764e5b006e5a597ef5993145fff32c39f65cd8a42ff15c1e5?context=repo
+
+vjammi > Repositories > flink > 1.14.3-reactive-app
+    vjammi/flink:1.14.3-reactive-app
+        DIGEST:sha256:175a5d179e31264764e5b006e5a597ef5993145fff32c39f65cd8a42ff15c1e5
+        OS/ARCH: linux/amd64
+        COMPRESSED SIZE: 451.02 MB
+```
+
 ### minikube addons enable metrics-server
 ```
 $ minikube addons enable metrics-server

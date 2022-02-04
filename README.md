@@ -36,14 +36,12 @@ minikube kubectl -- get po -A
 
 minikube ssh 'sudo ip link set docker0 promisc on'
 minikube dashboard
-
+minikube addons enable metrics-server
 ```
 
 ### Deploy Streaming App
 ```
 alias kubectl="minikube kubectl --"
-
-minikube addons enable metrics-server
 kubectl create namespace reactive
 kubectl config set-context --current --namespace=reactive
 kubectl apply -f flink-configuration-configmap.yaml

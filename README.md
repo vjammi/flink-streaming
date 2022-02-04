@@ -1,10 +1,10 @@
 # Flink Streaming App
 
-###  Install 
+###  Install - mvn, idea, docker and minikube
 ```
 apt get mvn
 
-sudo apt install docker.io
+udo apt install docker.io
 sudo usermod -a -G docker $(whoami)
 docker ps
 grep -E "^docker:" /etc/group | cut -d: -f4
@@ -19,28 +19,33 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ```
 cd ~/ds/workspace/flink-streaming
 docker login
+
 ./buildDocker.sh
-docker build -t vjammi/flink:1.14.3-reactive-app .
-docker push vjammi/flink:1.14.3-reactive-app
+or
+#docker build -t vjammi/flink:1.14.3-reactive-app .
+#docker push vjammi/flink:1.14.3-reactive-app
 docker images
 ```
-### kubectl cmds
+
+### Start Minikube
 ```
 minikube start
 minikube kubectl get pods
 minikube kubectl get services
 minikube kubectl -- get po -A
-```
-### 
-```
+
 minikube ssh 'sudo ip link set docker0 promisc on'
 minikube dashboard
-kubectl create namespace reactive
-kubectl config set-context --current --namespace=reactive
+
 ```
 
-### launch
+### Deploy Streaming App
 ```
+alias kubectl="minikube kubectl --"
+
+minikube addons enable metrics-server
+kubectl create namespace reactive
+kubectl config set-context --current --namespace=reactive
 kubectl apply -f flink-configuration-configmap.yaml
 kubectl apply -f jobmanager-application.yaml
 kubectl apply -f jobmanager-rest-service.yaml
@@ -48,18 +53,24 @@ kubectl apply -f jobmanager-service.yaml
 kubectl apply -f taskmanager-job-deployment.yaml
 ```
 
-### Cleanup
+### Scale Up/Down the Task Manager Replicas
 ```
-docker image rm <id>
-docker image prune
+kubectl scale --replicas=3 deployments/flink-taskmanager
 ```
-### Undeploy
+
+### Undeploy App
 ```
 kubectl delete -f flink-configuration-configmap.yaml
 kubectl delete -f jobmanager-application.yaml
 kubectl delete -f jobmanager-rest-service.yaml
 kubectl delete -f jobmanager-service.yaml
 kubectl delete -f taskmanager-job-deployment.yaml
+```
+
+### Cleanup/Prune Images
+```
+docker image rm <id>
+docker image prune
 ```
 
 ### UnInstall
@@ -96,7 +107,7 @@ Flink
     https://github.com/apache/flink/tree/master/flink-examples/flink-examples-streaming/src/main/java/org/apache/flink/streaming/examples/windowing
 ```
 
-### Start Minikube
+### $ minikube start
 ```
 😄  minikube v1.25.1 on Linuxmint 20.3 (vbox/amd64)
 ✨  Using the docker driver based on existing profile
@@ -116,7 +127,7 @@ Flink
 
 ```
 
-###./buildDocker.sh
+### $./buildDocker.sh
 ```
 java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
 [INFO] Scanning for projects...
@@ -162,3 +173,20 @@ edeaba958753: Layer already exists
 vjammi@linux-mint:~/ds/workspace/flink-streaming$
 
 ```
+### minikube addons enable metrics-server
+```
+$ minikube addons enable metrics-server
+    ▪ Using image k8s.gcr.io/metrics-server/metrics-server:v0.4.2
+🌟  The 'metrics-server' addon is enabled
+
+```
+
+### Flink Dashboard [http://127.0.0.1:8081/#/overview]
+```
+$ minikube kubectl port-forward flink-jobmanager-fdgfs 8081
+Forwarding from 127.0.0.1:8081 -> 8081
+Forwarding from [::1]:8081 -> 8081
+Handling connection for 8081
+```
+
+

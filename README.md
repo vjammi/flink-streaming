@@ -44,6 +44,7 @@ minikube addons enable metrics-server
 alias kubectl="minikube kubectl --"
 kubectl create namespace reactive
 kubectl config set-context --current --namespace=reactive
+
 kubectl apply -f flink-configuration-configmap.yaml
 kubectl apply -f jobmanager-application.yaml
 kubectl apply -f jobmanager-rest-service.yaml
@@ -58,6 +59,8 @@ kubectl scale --replicas=3 deployments/flink-taskmanager
 
 ### Undeploy App
 ```
+alias kubectl="minikube kubectl --"
+
 kubectl delete -f flink-configuration-configmap.yaml
 kubectl delete -f jobmanager-application.yaml
 kubectl delete -f jobmanager-rest-service.yaml
@@ -197,5 +200,14 @@ Forwarding from 127.0.0.1:8081 -> 8081
 Forwarding from [::1]:8081 -> 8081
 Handling connection for 8081
 ```
+
+### Kubernetes Metrics Server AddOn
+```
+It is cluster addon that provides a means of collecting resource data (like memory and CPU usage) from the kubelet on each worker node. 
+Additionally, it provides data for the Kubernetes Horizontal Pod Autoscaler when used for auto-scaling workloads. 
+Once obtained, that info is exposed inside the Kubernetes API server via the Metrics API. 
+It is an integral part of the core metrics pipeline
+```
+
 
 
